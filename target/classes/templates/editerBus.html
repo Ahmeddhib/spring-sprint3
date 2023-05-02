@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+  <meta charset="UTF-8">
+  <title>ADD Bus</title>
+  <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  <script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div layout:fragment="Mycontent">
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header"> Add Bus</div>
+      <div class="card-body">
+
+      <form th:action="@{saveBus}"  method="post">
+        <div class="form-group">
+          <label class="control-label" hidden>idBus :</label>
+          <input type="text" name="idBus" th:value="${bus.idBus}"/>
+        </div>
+        <div class="form-group">
+          <label class="control-label" >TypeBus :</label>
+          <input type="text" name="typeBus" class="form-control" th:value="${bus.typeBus}"/>
+          <span th:errors= "${bus.typeBus}" class="text-danger"> </span>
+        </div>
+        <div class="form-group">
+          <label class="control-label">price :</label>
+          <input type="number" name="price" class="form-control" th:value="${bus.price}" />
+          <span th:errors= "${bus.price}" class="text-danger"> </span>
+        </div>
+        <div class="form-group">
+          <label class="control-label" th:for="date">dateMisenService :</label>
+          <input type="date" name="date" th:value="${#dates.format(bus.dateMisenService, 'yyyy-MM-dd')}"
+                 class="form-control" id="date"/>
+        </div>
+        <div class="form-group">
+          <label class="control-label">couleur :</label>
+          <input type="text" name="couleur" class="form-control" th:value="${bus.couleur}"/>
+          <span th:errors= "${bus.couleur}" class="text-danger"> </span>
+        </div>
+        <div class="form-group">
+          <label class="control-label">capacity :</label>
+          <input type="text" name="capacity" class="form-control" th:value="${bus.capacity}"/>
+          <span th:errors= "${bus.capacity}" class="text-danger"> </span>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Modify</button>
+        </div>
+      </form>
+    </div>
+    <br/>
+    <br/>
+    <a href="ListeBus"> GO BACK TO BUS LIST</a>
+  </div>
+</div>
+</div>
+</body>
+</html>
+

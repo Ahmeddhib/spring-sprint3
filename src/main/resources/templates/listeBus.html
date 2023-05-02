@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+  <meta charset="utf-8">
+  <title>Bus List</title>
+</head>
+<body>
+<div layout:fragment="Mycontent">
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-primary">
+        Bus List
+      </div>
+      <div class="card-body bg-light">
+
+        <table class="table table-striped ">
+          <tr>
+            <th>ID</th><th>TypeBus</th><th>couleur</th><th>dateMiseenService</th><th>capacity</th><th>price</th><th>Marque</th><th>Modification</th><th>Suppression</th>
+          </tr>
+          <tr th:each="b:${buss.content}">
+            <td th:text="${b.idBus}"></td>
+            <td th:text="${b.TypeBus}"></td>
+            <td th:text="${b.couleur}"></td>
+            <td th:text="${b.dateMisenService}"></td>
+            <td th:text="${b.capacity}"></td>
+            <td th:text="${b.price}"></td>
+            <td th:text="${b.marque != null ? b.marque.nomMarque : ''}"></td>
+            <td sec:authorize="hasRole('ADMIN')" ><a class="btn btn-primary" th:href="@{modifierBus(id=${b.idBus}, page = ${currentPage})}">Modifier</a></td>
+            <td sec:authorize="hasRole('ADMIN')" ><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerBus(id=${b.idBus},
+                            page=${currentPage}, size=${size})}">Delete</a></td>
+
+            </tr>
+        </table>
+        <ul class="nav nav-pills">
+          <li th:each="page,status:${pages}">
+            <a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+               th:href="@{ ListeBus(page=${status.index}, size=${size} ) }"
+               th:text="${status.index }"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
